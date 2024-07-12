@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-06-29 03:40" author="Rahmatullo Omonov">
+        <createTable tableName="rooms">
+            <column name="id" type="BINARY(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(2000)"/>
+            <column name="size" type="FLOAT"/>
+            <column name="has_ac" type="BIT"/>
+            <column name="has_free_wifi" type="BIT"/>
+            <column name="is_smoking" type="BIT"/>
+            <column name="bed_type" type="ENUM('SINGLE_BED', 'DOUBLE_BED')"/>
+            <column name="price" type="DOUBLE"/>
+            <column name="taxes" type="DOUBLE"/>
+            <column name="has_breakfast" type="BIT"/>
+            <column name="hotel_id" type="BINARY(16)"/>
+            <column name="beds_count" type="INT"/>
+            <column name="max_person" type="INT"/>
+            <column name="breakfast_price" type="DOUBLE"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="rooms" baseColumnNames="hotel_id" constraintName="fk_hotel_room_id" referencedTableName="hotels"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

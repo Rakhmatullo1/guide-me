@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-06-29 04:00" author="Rahmatullo Omonov">
+        <createTable tableName="hotels">
+            <column name="id" type="BINARY(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="hotel_type" type="ENUM('HOTEL', 'HOSTEL', 'APARTMENT')"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(2000)"/>
+            <column name="longitude" type="DOUBLE"/>
+            <column name="latitude" type="DOUBLE"/>
+            <column name="owner_id" type="BINARY(16)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="province" type="VARCHAR(255)"/>
+            <column name="star" type="INT"/>
+            <column name="check_in" type="varchar(5)"/>
+            <column name="check_out" type="varchar(5)"/>
+            <column name="phone_number" type="varchar(13)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

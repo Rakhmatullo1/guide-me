@@ -1,0 +1,36 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: omonovrahmatullo9@gmail.com
+    password: hniv xjvo ywao cvvz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  application:
+    name: hotel-booking
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}
+  liquibase:
+    enabled: true
+    url: ${GUIDEME_DB}
+    user: ${GUIDEME_DB_USER}
+    password: ${GUIDEME_DB_PASSWORD}
+  datasource:
+    password: ${GUIDEME_DB_PASSWORD}
+    url: ${GUIDEME_DB}
+    username: ${GUIDEME_DB_USER}
+file-service:
+  serverUrl: ${GUIDEME_FILE}
+file:
+  serverUrl: ${IMAGE_REPR_URL}
+user-service:
+  serverUrl: ${GUIDEME_USER}
+server:
+  port: 8081

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - include:
+      file: 20240629_create_hotel_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240629_create_review_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240629_create_room_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240629_create_facility_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240629_create_image_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240629_create_image_hotel_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240705_create_booking_table.xml
+      relativeToChangelogFile: true

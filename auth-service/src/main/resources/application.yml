@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: auth-service
+
+keycloak:
+  username: user-manager
+  password: 1111
+  clientId: demo
+  clientSecret: demo
+  serverUrl: ${KEYCLOAK_URL}
+  realm: dev
+  scope: openid

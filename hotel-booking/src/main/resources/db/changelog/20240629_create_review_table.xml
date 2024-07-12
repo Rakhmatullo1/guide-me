@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-06-29 04:09" author="Rahmatullo Omonov">
+        <createTable tableName="reviews">
+            <column name="id" type="BINARY(16)">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="username" type="varchar(255)"/>
+            <column name="rate" type="INT"/>
+            <column name="message" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME(6)"/>
+            <column name="hotel_id" type="BINARY(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="reviews" baseColumnNames="hotel_id" constraintName="fk_hotel_review" referencedTableName="hotels"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

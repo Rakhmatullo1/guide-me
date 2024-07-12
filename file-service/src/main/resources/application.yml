@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: file-service
+
+
+storage:
+  location: assets/images
+server:
+  port: 8082
+
