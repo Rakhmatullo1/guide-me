@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface FavoriteService {
 
-    Optional<ProductDTO> add2Favorites(UUID product, String token);
+    Optional<Object> add2Favorites(UUID product, String token);
 
     Page<ProductDTO> getAllFavorites(String token, int page, int size);
 

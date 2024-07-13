@@ -8,6 +8,7 @@ import uz.guideme.bazaar.entity.ProductEntity;
 import uz.guideme.bazaar.service.CommentService;
 import uz.guideme.bazaar.service.ProductService;
 import uz.guideme.bazaar.service.dto.CommentDTO;
+import uz.guideme.bazaar.service.exception.InvalidArgumentException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -33,6 +34,12 @@ public class CommentProductService {
 
     public Page<CommentDTO> getAllByProduct(String id, int page, int size){
         log.debug("Requested to get comments");
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
         ProductEntity product = productService.findByID(UUID.fromString(id));
 
         return commentService.findAll(page, size, product);

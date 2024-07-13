@@ -18,11 +18,11 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
-    @Query(value = "SELECT  * FROM product ORDER BY created_at LIMIT :size OFFSET (:size * :page) ", nativeQuery = true)
-    Page<ProductEntity> getAll(@Param("page") int page, @Param("size") int size);
+    @Query(value = "SELECT  * FROM product ORDER BY created_at", nativeQuery = true)
+    Page<ProductEntity> getAll(Pageable pageable);
 
-    @Query(value = "SELECT  * FROM product WHERE category = :category ORDER BY created_at LIMIT :size OFFSET (:size * :page)", nativeQuery = true)
-    Page<ProductEntity> getallByCategory(@Param("page") int page, @Param("size") int size,@Param("category") String category);
+    @Query(value = "SELECT  * FROM product WHERE category = :category ORDER BY created_at DESC", nativeQuery = true)
+    Page<ProductEntity> getallByCategory(@Param("category") String category, Pageable pageable);
 
     Page<ProductEntity> findAllByMarket(MarketEntity market, Pageable pageable);
 }

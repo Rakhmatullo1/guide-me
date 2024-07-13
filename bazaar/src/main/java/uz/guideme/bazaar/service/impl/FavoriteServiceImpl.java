@@ -11,9 +11,11 @@ import uz.guideme.bazaar.repository.ProductFavoriteRepository;
 import uz.guideme.bazaar.service.FavoriteService;
 import uz.guideme.bazaar.service.ProductService;
 import uz.guideme.bazaar.service.dto.ProductDTO;
+import uz.guideme.bazaar.service.exception.InvalidArgumentException;
 import uz.guideme.bazaar.service.impl.utils.TokenUtils;
 import uz.guideme.bazaar.service.mapper.ProductMapper;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,18 +34,32 @@ public class FavoriteServiceImpl implements FavoriteService {
     private String serverUrl;
 
     @Override
-    public Optional<ProductDTO> add2Favorites(UUID productID, String token) {
+    public Optional<Object> add2Favorites(UUID productID, String token) {
         ProductFavoriteEntity entity = new ProductFavoriteEntity();
+        String username = TokenUtils.getUsername(token);
+
+        if(repository.existsByUsernameAndProductId(username, productID)) {
+            Optional<ProductFavoriteEntity> favorite = repository.findByUsernameAndProductId(username, productID);
+            if(favorite.isPresent()){
+                repository.delete(favorite.get());
+                return Optional.of(Map.of("message", "Successfully removed"));
+            }
+        }
 
         entity.setProductId(productID);
-        entity.setUsername(TokenUtils.getUsername(token));
+        entity.setUsername(username);
         entity = repository.save(entity);
-        return productService.findById(entity.getProductId());
+        return Optional.of(ProductMapper.toDto(productService.findByID(entity.getProductId()), serverUrl));
     }
 
     @Override
     public Page<ProductDTO> getAllFavorites(String token, int page, int size) {
         String username = TokenUtils.getUsername(token);
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
 
         Page<ProductFavoriteEntity> entities = repository.findAllByUsername(username, PageRequest.of(page, size));
 

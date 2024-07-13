@@ -16,7 +16,7 @@ public class CommentMapper {
         dto.setMessage(entity.getMessage());
         dto.setRatings(entity.getRatings());
         dto.setUsername(entity.getUsername());
-        dto.setCreatedAt(entity.getCreatedAt());
+        dto.setCreatedAt(entity.getCreatedAt().toString());
 
         return dto;
     }

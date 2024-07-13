@@ -20,6 +20,6 @@ public class CommentDTO {
     @Range(max = 5, min = 0, message = "rating should be between 0 and 5")
     @NotNull(message = "ratings cannot be null")
     private int ratings;
-    private Timestamp createdAt;
+    private String createdAt;
     private String username;
 }

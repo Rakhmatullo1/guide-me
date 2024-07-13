@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import uz.guideme.bazaar.service.enumeration.ProductTypes;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 /**
@@ -14,12 +13,13 @@ import java.util.UUID;
  */
 @Data
 public class ProductDTO {
+    private UUID id;
     @NotBlank(message = "name cannot be blank")
     private String name;
     @NotNull(message = "price cannot be null")
     private float price;
     private ProductTypes category;
-    private Timestamp createdAt;
+    private String createdAt;
     private UUID createdBy;
     @NotBlank(message = "description cannot be null")
     private String description;

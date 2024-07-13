@@ -62,6 +62,12 @@ public class ImageMarketService {
 
     public Map<String, List<String>> getAll(String id, int page, int size) {
         log.info("Requested to get images by market");
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
         MarketEntity market = marketService.findById(UUID.fromString(id));
 
         Page<ImageMarketEntity> images = imageService.findByEntity(market, PageRequest.of(page, size));

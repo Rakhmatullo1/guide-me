@@ -1,7 +1,7 @@
 package uz.guideme.bazaar.configuration;
 
 
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import uz.guideme.bazaar.security.JwtGrantedAuthorityConverter;
 
 /**
@@ -24,14 +25,18 @@ import uz.guideme.bazaar.security.JwtGrantedAuthorityConverter;
  */
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private static final String HOTEL_OWNER = "ROLE_HOTEL_OWNER";
+    private static final String SELLER = "ROLE_SELLER";
 
     private static final String PREFERRED_USERNAME = "preferred_username";
 
     private static final RequestMatcher SECURED_ENDPOINTS = new AndRequestMatcher(
-            new AntPathRequestMatcher("/api/hotels", HttpMethod.POST.name())
+            new AntPathRequestMatcher("/api/market", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/market/{id}/images", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/market/product/{id}/image", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/market/{id}/product", HttpMethod.POST.name())
     );
 
     @Bean
@@ -39,7 +44,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(r ->
-                        r.requestMatchers(SECURED_ENDPOINTS).hasAnyAuthority(HOTEL_OWNER)
+                        r.requestMatchers(SECURED_ENDPOINTS).hasAuthority(SELLER)
                                 .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(authenticationConverter())))

@@ -31,12 +31,13 @@ public class ProductMapper {
         ProductDTO productDTO = new ProductDTO();
 
         if(Objects.nonNull(product.getImages()) && !product.getImages().isEmpty()) {
-            productDTO.setImageUrl(serverUrl + "?filePath="+product.getImages().get(0));
+            productDTO.setImageUrl(serverUrl + "?filePath="+product.getImages().get(0).getUrl());
         }
 
+        productDTO.setId(product.getId());
         productDTO.setName(product.getName());
         productDTO.setPrice(product.getPrice());
-        productDTO.setCreatedAt(product.getCreatedAt());
+        productDTO.setCreatedAt(product.getCreatedAt().toString());
         productDTO.setDescription(product.getDescription());
         productDTO.setCategory(getCategory(product.getCategory()));
         productDTO.setOverallRanking(calculateOverallRanking(product.getComments()));

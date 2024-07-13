@@ -12,6 +12,7 @@ import uz.guideme.bazaar.service.MarketService;
 import uz.guideme.bazaar.service.dto.MarketDTO;
 import uz.guideme.bazaar.service.exception.CustomException;
 import uz.guideme.bazaar.service.exception.ExistsException;
+import uz.guideme.bazaar.service.exception.InvalidArgumentException;
 import uz.guideme.bazaar.service.exception.NotFoundException;
 import uz.guideme.bazaar.service.mapper.MarketMapper;
 
@@ -52,6 +53,12 @@ public class MarketServiceImpl implements MarketService {
     @Override
     public Page<MarketDTO> getAll(int page, int size) {
         log.info("Requested to get all markets");
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
         Page<MarketEntity> markets = marketRepository.findAll(PageRequest.of(page, size));
 
         return markets.map(MarketMapper::toDto);

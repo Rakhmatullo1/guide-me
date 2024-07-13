@@ -13,6 +13,7 @@ import uz.guideme.bazaar.security.SecurityUtils;
 import uz.guideme.bazaar.service.ProductService;
 import uz.guideme.bazaar.service.dto.ProductDTO;
 import uz.guideme.bazaar.service.enumeration.ProductTypes;
+import uz.guideme.bazaar.service.exception.InvalidArgumentException;
 import uz.guideme.bazaar.service.exception.NotFoundException;
 import uz.guideme.bazaar.service.mapper.ProductMapper;
 
@@ -61,19 +62,36 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> findAll(int page, int size) {
         log.info("Requested to get all products");
-        Page<ProductEntity> products = repository.getAll(page, size) ;
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
+        Page<ProductEntity> products = repository.getAll(PageRequest.of(page, size)) ;
         return products.map(value->ProductMapper.toDto(value, serverUrl));
     }
 
     @Override
     public Page<ProductDTO> findAllByCategory(int page, int size, ProductTypes category) {
         log.info("Requested to get  products by category");
-        Page<ProductEntity> products = repository.getallByCategory(page, size,category.name() );
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
+        Page<ProductEntity> products = repository.getallByCategory(category.name(), PageRequest.of(page, size) );
         return products.map(value->ProductMapper.toDto(value, serverUrl));
     }
 
     @Override
     public Page<ProductDTO> findByMarketById(int page, int size, MarketEntity market) {
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
         Page<ProductEntity> products = repository.findAllByMarket(market, PageRequest.of(page, size));
         return products.map(value->ProductMapper.toDto(value, serverUrl));
     }

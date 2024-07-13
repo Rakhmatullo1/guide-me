@@ -7,6 +7,6 @@ keycloak:
   password: 1111
   clientId: demo
   clientSecret: demo
-  serverUrl: ${KEYCLOAK_URL}
+  serverUrl: http://localhost:9080
   realm: dev
   scope: openid

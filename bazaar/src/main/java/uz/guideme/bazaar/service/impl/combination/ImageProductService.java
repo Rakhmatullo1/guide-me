@@ -61,6 +61,12 @@ public class ImageProductService {
 
     public Map<String, List<String>> getAll(String id, int page, int size) {
         log.info("Requested to get images by product");
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
         ProductEntity product = productService.findByID(UUID.fromString(id));
 
         Page<ImageProductEntity> images = imageService.findByEntity(product, PageRequest.of(page, size));

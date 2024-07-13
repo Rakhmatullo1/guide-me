@@ -27,12 +27,12 @@ public class FavoriteController {
     private final FavoriteService favoriteService;
 
     @PostMapping("/api/favorites/product/{id}")
-    public ResponseEntity<ProductDTO> add2Fav(@PathVariable("id") String id,
+    public ResponseEntity<Object> add2Fav(@PathVariable("id") String id,
                                               @RequestHeader(TOKEN_HEADER) String token) {
         log.debug("REST request add to favorite products");
-        Optional<ProductDTO> result = favoriteService.add2Favorites(UUID.fromString(id), token);
+        Optional<Object> result = favoriteService.add2Favorites(UUID.fromString(id), token);
 
-        ResponseEntity<ProductDTO> response = ResponseUtils.wrap(result);
+        ResponseEntity<Object> response = ResponseUtils.wrap(result);
         log.debug("Response: {}", response);
         return response;
     }

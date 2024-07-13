@@ -3,6 +3,7 @@ package uz.guideme.bazaar.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import uz.guideme.bazaar.entity.CommentEntity;
 import uz.guideme.bazaar.entity.ProductEntity;
@@ -10,6 +11,7 @@ import uz.guideme.bazaar.repository.CommentRepository;
 import uz.guideme.bazaar.service.CommentService;
 import uz.guideme.bazaar.service.client.UserClientService;
 import uz.guideme.bazaar.service.dto.CommentDTO;
+import uz.guideme.bazaar.service.exception.InvalidArgumentException;
 import uz.guideme.bazaar.service.impl.utils.TokenUtils;
 import uz.guideme.bazaar.service.mapper.CommentMapper;
 
@@ -51,7 +53,13 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Page<CommentDTO> findAll(int page, int size, ProductEntity product) {
         log.info("Requested to get all comments");
-        Page<CommentEntity> comments =repository.getAll(page,size, product.getId());
+
+        if(size<=0 || page<0) {
+            log.warn("Page size must not be less than one");
+            throw new InvalidArgumentException("Page size or number must not be less than one");
+        }
+
+        Page<CommentEntity> comments =repository.getAll( product.getId(), PageRequest.of(page,size));
         return comments.map(CommentMapper::toDto);
     }
 }
