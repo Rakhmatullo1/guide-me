@@ -62,6 +62,8 @@ services:
       - guideme-file-network
     build:
       context: ./file-service
+    volumes:
+      - file:/app/assets/images
   hotel:
     build:
       context: ./hotel-booking
@@ -110,6 +112,7 @@ services:
       GUIDEME_USER: http://guide-me-user:8083/api/users
 volumes:
   guide:
+  file:
 networks:
   guideme-keycloak-network:
     driver: bridge
