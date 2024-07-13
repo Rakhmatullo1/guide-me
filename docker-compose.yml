@@ -85,6 +85,29 @@ services:
       - guide-me-file
       - guide-me-user
       - guideme-keycloak
+  bazaar:
+    build:
+      context: ./bazaar
+    ports:
+      - "8084:8084"
+    networks:
+      - guideme-keycloak-network
+      - guideme-db-network
+      - guideme-user-network
+      - guideme-file-network
+    depends_on:
+      - guideme-db
+      - guide-me-file
+      - guide-me-user
+      - guideme-keycloak
+    environment:
+      IMAGE_REPR_URL: http://localhost:8082
+      KEYCLOAK_URL: http://guideme-keycloak:9080/realms/dev
+      GUIDEME_DB: jdbc:mysql://guideme-db:3306/hotels
+      GUIDEME_DB_USER: raaxiim
+      GUIDEME_DB_PASSWORD: raaxiim
+      GUIDEME_FILE: http://guide-me-file:8082/api/file
+      GUIDEME_USER: http://guide-me-user:8083/api/users
 volumes:
   guide:
 networks:

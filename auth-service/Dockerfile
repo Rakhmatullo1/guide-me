@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk AS build
+FROM maven:3.8.5-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests

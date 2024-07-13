@@ -4,7 +4,7 @@ COPY . .
 RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:17-jdk
-EXPOSE 8082
+EXPOSE 8084
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

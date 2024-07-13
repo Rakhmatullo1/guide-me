@@ -94,7 +94,7 @@ public class ProductController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/api/market/product/{id}/image")
+    @GetMapping("/api/market/product/{id}/image")
     public ResponseEntity<Map<String, List<String>>> getImages(@PathVariable String id,
                                                                @RequestParam(value = "page", defaultValue = "0") int page,
                                                                @RequestParam(value = "size", defaultValue = "10") int size) {
