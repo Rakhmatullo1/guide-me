@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: bazaar
+  datasource:
+    url: jdbc:mysql://localhost:3307/hotels
+    password: raaxiim
+    username: raaxiim
+  liquibase:
+    enabled: true
+    password: raaxiim
+    user: raaxiim
+    url: jdbc:mysql://localhost:3307/hotels
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://guideme-keycloak:9080/realms/dev
+file-service:
+  serverUrl: http://localhost:8082
+file:
+  serverUrl: ${IMAGE_REPR_URL}
+user-service:
+  serverUrl: ${GUIDEME_USER}
+server:
+  port: 8084

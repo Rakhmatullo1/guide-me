@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-07-12 17:34" author="Rahmatullo Omonov">
+        <createTable tableName="product">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(64)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="FLOAT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="category" type="varchar(32)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="DATETIME(6)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="created_by" type="BINARY(16)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="market_id" type="BINARY(16)"/>
+
+            <column name="description" type="varchar(256)" />
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="market_id" constraintName="fk_market_product_id" referencedTableName="market"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

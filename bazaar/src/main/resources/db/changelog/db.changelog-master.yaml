@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: 20240712_create_market_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240712_create_product_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240712_create_comment_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240712_create_market_image_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240712_create_product_images_table.xml
+      relativeToChangelogFile: true
+  - include:
+      file: 20240712_create_user_favorite_table.xml
+      relativeToChangelogFile: true
