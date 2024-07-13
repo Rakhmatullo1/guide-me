@@ -2,24 +2,24 @@ spring:
   application:
     name: bazaar
   datasource:
-    url: jdbc:mysql://localhost:3307/hotels
-    password: raaxiim
-    username: raaxiim
+    url: ${GUIDEME_DB}
+    password: ${GUIDEME_DB_USER}
+    username: ${GUIDEME_DB_PASSWORD}
   liquibase:
     enabled: true
-    password: raaxiim
-    user: raaxiim
-    url: jdbc:mysql://localhost:3307/hotels
+    password: ${GUIDEME_DB_PASSWORD}
+    user: ${GUIDEME_DB_USER}
+    url: ${GUIDEME_DB}
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9080/realms/dev
+          issuer-uri: ${KEYCLOAK_URL}
 file-service:
-  serverUrl: http://localhost:8082/api/file
+  serverUrl: ${GUIDEME_FILE}
 file:
-  serverUrl: http://localhost:8082/api/file
+  serverUrl: ${IMAGE_REPR_URL}
 user-service:
-  serverUrl: http://localhost:8083/api/users
+  serverUrl: ${GUIDEME_USER}
 server:
   port: 8084
