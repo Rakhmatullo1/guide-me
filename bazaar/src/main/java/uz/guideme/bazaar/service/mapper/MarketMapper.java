@@ -41,7 +41,7 @@ public class MarketMapper {
         dto.setOverallRanking(calculateOverall(entity.getProducts()));
         dto.setPhoneNumber(entity.getPhoneNumber());
         if(!Objects.isNull(entity.getImages()) && !entity.getImages().isEmpty()) {
-            dto.setImageUrl(host + entity.getImages().get(0).getUrl());
+            dto.setImageUrl(host + "?filePath=" + entity.getImages().get(0).getUrl());
         }
 
         return dto;
