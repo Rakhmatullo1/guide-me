@@ -32,4 +32,5 @@ public class MarketDTO {
     @Pattern(regexp = "^\\d+$", message = "phone number should be 998XXYYYYYYY")
     private String phoneNumber;
     private double overallRanking;
+    private String imageUrl;
 }

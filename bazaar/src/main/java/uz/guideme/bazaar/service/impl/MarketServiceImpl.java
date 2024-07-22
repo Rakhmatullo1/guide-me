@@ -2,6 +2,7 @@ package uz.guideme.bazaar.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ import java.util.UUID;
 @Slf4j
 public class MarketServiceImpl implements MarketService {
 
+    @Value("${file.serverUrl}")
+    private String host;
+
     private final MarketRepository marketRepository;
 
     @Override
@@ -47,7 +51,7 @@ public class MarketServiceImpl implements MarketService {
         entity.setOwnerId(userID);
 
         log.info("Successfully created new market");
-        return Optional.of(MarketMapper.toDto(entity));
+        return Optional.of(MarketMapper.toDto(entity, host));
     }
 
     @Override
@@ -61,14 +65,14 @@ public class MarketServiceImpl implements MarketService {
 
         Page<MarketEntity> markets = marketRepository.findAll(PageRequest.of(page, size));
 
-        return markets.map(MarketMapper::toDto);
+        return markets.map(market -> MarketMapper.toDto(market, host));
     }
 
     @Override
     public Optional<MarketDTO> findByID(UUID id) {
         log.info("Requested to get market dto by id");
         Optional<MarketEntity> market = marketRepository.findById(id);
-        return market.map(MarketMapper::toDto);
+        return market.map(v-> MarketMapper.toDto(v, host));
     }
 
     @Override
@@ -91,6 +95,6 @@ public class MarketServiceImpl implements MarketService {
         market.setId(id);
         market = marketRepository.save(market);
 
-        return Optional.of(MarketMapper.toDto(market));
+        return Optional.of( MarketMapper.toDto(market, host));
     }
 }

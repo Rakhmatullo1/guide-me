@@ -28,7 +28,7 @@ public class MarketMapper {
         return entity;
     }
 
-    public static MarketDTO toDto(MarketEntity entity) {
+    public static MarketDTO toDto(MarketEntity entity, String host) {
         MarketDTO dto = new MarketDTO();
 
         dto.setId(entity.getId());
@@ -40,6 +40,9 @@ public class MarketMapper {
         dto.setDescription(entity.getDescription());
         dto.setOverallRanking(calculateOverall(entity.getProducts()));
         dto.setPhoneNumber(entity.getPhoneNumber());
+        if(!Objects.isNull(entity.getImages()) && !entity.getImages().isEmpty()) {
+            dto.setImageUrl(host + entity.getImages().get(0).getUrl());
+        }
 
         return dto;
     }
