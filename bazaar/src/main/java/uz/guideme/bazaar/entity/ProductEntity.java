@@ -30,6 +30,7 @@ public class ProductEntity {
     private String category;
     private Timestamp createdAt;
     private UUID createdBy;
+    @Column(length = 2000, name = "description")
     private String description;
     @ManyToOne
     @JoinColumn(name = "market_id", foreignKey = @ForeignKey(name = "fk_market_product_id"))

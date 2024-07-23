@@ -3,6 +3,7 @@ package uz.guideme.bazaar.service.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -57,6 +58,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
+    public ResponseEntity<ErrorDTO> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        ErrorDTO errorDTO = new ErrorDTO(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(errorDTO);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<ErrorDTO> handleMissingServletRequestPartException(MissingServletRequestPartException ex) {
         log.warn(EXCEPTION, ex.getMessage());
         ErrorDTO errorDTO = new ErrorDTO();
@@ -64,6 +71,12 @@ public class GlobalExceptionHandler {
         errorDTO.setStatus(HttpStatus.BAD_REQUEST.value());
 
         log.warn(ERROR, errorDTO);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(errorDTO);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorDTO> handleInvalidArgumentException(IllegalArgumentException ex) {
+        ErrorDTO errorDTO = new ErrorDTO(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(errorDTO);
     }
 }

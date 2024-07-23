@@ -1,5 +1,6 @@
 package uz.guideme.bazaar.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class MarketController {
 
 
     @PostMapping("/api/market")
-    public ResponseEntity<MarketDTO> create(@RequestBody MarketDTO marketDTO) {
+    public ResponseEntity<MarketDTO> create(@Valid @RequestBody MarketDTO marketDTO) {
         log.debug("REST request to create a market");
         Optional<MarketDTO> result = marketService.create(marketDTO);
 

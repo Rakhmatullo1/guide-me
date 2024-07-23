@@ -42,6 +42,16 @@ public class ProductMapper {
         productDTO.setCategory(getCategory(product.getCategory()));
         productDTO.setOverallRanking(calculateOverallRanking(product.getComments()));
 
+        ProductDTO.MarketDTO marketDTO = new ProductDTO.MarketDTO();
+
+        marketDTO.setAddress(product.getMarket().getAddress());
+        marketDTO.setName(product.getMarket().getName());
+
+        if(Objects.nonNull(product.getMarket().getImages()) && !product.getMarket().getImages().isEmpty()) {
+            marketDTO.setImageUrl(serverUrl + "?filePath="+product.getMarket().getImages().get(0));
+        }
+        productDTO.setMarket(marketDTO);
+
         return productDTO;
     }
 

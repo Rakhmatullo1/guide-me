@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import uz.guideme.bazaar.service.exception.CustomException;
 import uz.guideme.bazaar.service.exception.NotFoundException;
 
 import java.util.*;
@@ -43,6 +44,9 @@ public class SecurityUtils {
             log.warn("Authentication is not found");
         }
 
+        if(!(auth instanceof  JwtAuthenticationToken)){
+            throw new CustomException("Bearer token is required");
+        }
         return ((JwtAuthenticationToken) auth).getToken().getClaims();
     }
 

@@ -1,5 +1,6 @@
 package uz.guideme.bazaar.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ public class CommentController {
 
     @PostMapping("/api/market/product/{id}/comment")
     public ResponseEntity<CommentDTO> writeComments(@PathVariable String id,
-                                                    @RequestBody CommentDTO commentDTO,
+                                                    @Valid @RequestBody CommentDTO commentDTO,
                                                     @RequestHeader(TOKEN_HEADER) String token) {
         log.debug("REST request to write comment");
         Optional<CommentDTO> result = productService.create(commentDTO, id, token);

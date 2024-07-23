@@ -20,9 +20,16 @@ public class ProductDTO {
     private float price;
     private ProductTypes category;
     private String createdAt;
-    private UUID createdBy;
+    private MarketDTO market;
     @NotBlank(message = "description cannot be null")
     private String description;
     private double overallRanking;
     private String imageUrl;
+
+    @Data
+    public static class MarketDTO{
+        private String imageUrl;
+        private String address;
+        private String name;
+    }
 }

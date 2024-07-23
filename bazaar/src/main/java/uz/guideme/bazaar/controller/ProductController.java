@@ -1,5 +1,6 @@
 package uz.guideme.bazaar.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,7 @@ public class ProductController {
     private final ImageProductService imageProductService;
 
     @PostMapping("/api/market/{id}/product")
-    public ResponseEntity<ProductDTO> createProduct(@PathVariable String id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> createProduct(@PathVariable String id,@Valid @RequestBody ProductDTO productDTO) {
         log.debug("REST request to add new product");
         Optional<ProductDTO> result = marketProductService.createProduct(UUID.fromString(id), productDTO);
 
