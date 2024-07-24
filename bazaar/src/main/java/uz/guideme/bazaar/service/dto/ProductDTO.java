@@ -31,5 +31,6 @@ public class ProductDTO {
         private String imageUrl;
         private String address;
         private String name;
+        private UUID id;
     }
 }
