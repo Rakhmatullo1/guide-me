@@ -49,7 +49,7 @@ public class ProductMapper {
         marketDTO.setId(product.getMarket().getId());
 
         if(Objects.nonNull(product.getMarket().getImages()) && !product.getMarket().getImages().isEmpty()) {
-            marketDTO.setImageUrl(serverUrl + "?filePath="+product.getMarket().getImages().get(0));
+            marketDTO.setImageUrl(serverUrl + "?filePath="+product.getMarket().getImages().get(0).getUrl());
         }
         productDTO.setMarket(marketDTO);
 
